@@ -1,0 +1,91 @@
+<div class="container">
+ <!-- ***** Header Area Start ***** -->
+ <header class="header-area header-sticky">
+  <div class="header-container">
+      <div class="row">
+          <div class="col-12">
+              <nav class="main-nav">
+                  <!-- ***** Logo Start ***** -->
+                  <a href="index.html" class="logo">
+                      <img src="../../assets/logocrud.png" alt="">
+                  </a>
+                  <!-- ***** Logo End ***** -->
+                  <!-- ***** Menu Start ***** -->
+                  <ul class="nav">
+                      <li><a href="index.html" class="active">Home</a></li>
+                      <li><a href="explore.html">Explore</a></li>
+                      <li><a href="details.html">Item Details</a></li>
+                      <li><a href="author.html">Author</a></li>
+                      <li><a href="create.html">Create Yours</a></li>
+                  </ul>   
+                  <a class='menu-trigger'>
+                      <span>Menu</span>
+                  </a>
+                  <!-- ***** Menu End ***** -->
+              </nav>
+          </div>
+      </div>
+  </div>
+</header>
+<!-- ***** Header Area End ***** -->
+
+
+  <div class="form-container">
+    <div class="generate-form">
+      <h2>Generate CRUD Operations</h2>
+      <form id="crudForm" (ngSubmit)="generateCrud()">
+        <div class="entity-section" *ngFor="let entity of entities; let i = index">
+          <div class="entity-header">
+            <h3>Entity {{ i + 1 }}</h3>
+            <button type="button" (click)="removeEntity(i)" class="remove-entity">Remove</button>
+          </div>
+          <div class="form-group">
+            <label for="entityName{{ i }}">Entity Name</label>
+            <input
+              type="text"
+              id="entityName{{ i }}"
+              [(ngModel)]="entity.name"
+              name="entityName{{ i }}"
+              placeholder="e.g., Student"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Attributes</label>
+            <div *ngFor="let attr of entity.attributes; let j = index" class="attribute-group">
+              <input
+                type="text"
+                [(ngModel)]="attr.name"
+                name="attrName{{ i }}{{ j }}"
+                placeholder="Attribute Name"
+                required
+              />
+              <select [(ngModel)]="attr.type" name="attrType{{ i }}{{ j }}" required>
+                <option value="string">String</option>
+                <option value="int">Integer</option>
+                <option value="float">Float</option>
+                <option value="boolean">Boolean</option>
+              </select>
+              <button type="button" (click)="removeAttribute(i, j)">Remove</button>
+            </div>
+            <button type="button" (click)="addAttribute(i)">Add Attribute</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Roles (comma-separated)</label>
+          <input type="text" [(ngModel)]="roles" name="roles" placeholder="e.g., Admin, User" />
+        </div>
+
+        <div class="form-group">
+          <button type="button" (click)="addEntity()">Add Another Entity</button>
+        </div>
+
+        <div class="form-group">
+          <button type="submit">Generate</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
